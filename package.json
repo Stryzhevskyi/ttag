@@ -62,13 +62,14 @@
     "mocha": "^5.2.0",
     "prettier": "^3.0.3",
     "sinon": "1.17.7",
-    "webpack": "^5.89.0",
-    "webpack-cli": "^5.1.4",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
     "dedent": "1.5.1",
-    "plural-forms": "^0.5.3"
+    "plural-forms": "^0.5.3",
+    "plural-forms-parser": "^1.0.1"
   }
 }

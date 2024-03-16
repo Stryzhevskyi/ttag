@@ -2,6 +2,7 @@
 import dedent from 'dedent';
 import { getPluralFunc as getPluralFn } from 'plural-forms/minimal-safe';
 import Config, { TTagCompactTranslations, TTagTranslations, TTagTranslation } from './config';
+import { parseMemoized } from 'plural-forms-parser';
 
 export const getMsgid = (str: TemplateStringsArray, exprs: Array<unknown>) => {
     const result = [];
@@ -53,15 +54,11 @@ export const buildArr = (strs: TemplateStringsArray, exprs: Array<any>) => {
     }, [] as Array<any>);
 };
 
-function pluralFnBody(pluralStr: string) {
-    return `return args[+ (${pluralStr})];`;
-}
-
 const fnCache: { [key: string]: ReturnType<typeof Function> } = {};
 export function makePluralFunc(pluralStr: string) {
     let fn = fnCache[pluralStr];
     if (!fn) {
-        fn = new Function('n', 'args', pluralFnBody(pluralStr));
+        fn = (n: number, args: string[]) => args[+parseMemoized(pluralStr).evaluate(n)];
         fnCache[pluralStr] = fn;
     }
     return fn;
